@@ -1,28 +1,33 @@
-## DELTA MODULATION
-## AIM :
-To Write a Python program to implement and visualize delta modulation and demodulation with low-pass filtering for signal reconstruction.
+## Delta-Modulation
+## AIM
+To implement Delta Modulation and Demodulation for a sine wave signal, demonstrating encoding, decoding, and signal reconstruction. The goal is to achieve a smooth demodulated output using a low-pass filter to minimize distortion.
 
-## TOOLS REQUIRED:
-Python IDE with Scipy and Numpy
-
-## PROGRAM:
-##DELTA MODULATION 
+## TOOLS REQUIRED
+Python: A versatile programming language used for scientific computing and signal processing. NumPy: A powerful numerical library in Python for performing array-based operations and mathematical computations. Matplotlib: A plotting library for generating high-quality graphs and visualizations of data, essentialfor demonstrating the sampling process.
+## PROGRAM
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, filtfilt
 
 #Parameters
 fs = 10000  # Sampling frequency
+
 f = 10  # Signal frequency
+
 T = 1  # Duration in seconds
+
 delta = 0.1  # Step size
 
 t = np.arange(0, T, 1/fs)
+
 message_signal = np.sin(2 * np.pi * f * t)  # Sine wave as input signal
 
- #Delta Modulation Encoding
+#Delta Modulation Encoding
+
 encoded_signal = []
+
 dm_output = [0]  # Initial value of the modulated signal
+
 prev_sample = 0
 
 for sample in message_signal:
@@ -45,7 +50,7 @@ for bit in encoded_signal:
 #Convert to numpy array
 demodulated_signal = np.array(demodulated_signal)
 
- Apply a low-pass Butterworth filter
+#Apply a low-pass Butterworth filter
 def low_pass_filter(signal, cutoff_freq, fs, order=4):
     nyquist = 0.5 * fs
     normal_cutoff = cutoff_freq / nyquist
@@ -58,25 +63,34 @@ filtered_signal = low_pass_filter(demodulated_signal, cutoff_freq=20, fs=fs)
 plt.figure(figsize=(12, 6))
 
 plt.subplot(3, 1, 1)
+
 plt.plot(t, message_signal, label='Original Signal', linewidth=1)
+
 plt.legend()
+
 plt.grid()
 
 plt.subplot(3, 1, 2)
+
 plt.step(t, dm_output[:-1], label='Delta Modulated Signal', where='mid')
+
 plt.legend()
+
 plt.grid()
 
+
 plt.subplot(3, 1, 3)
+
 plt.plot(t, filtered_signal[:-1], label='Demodulated & Filtered Signal', linestyle='dotted', linewidth=1, color='r')
+
 plt.legend()
+
 plt.grid()
 
 plt.tight_layout()
+
 plt.show()
-## OUTPUT WAVEFORM :
-![image](https://github.com/user-attachments/assets/c870c896-1bea-413e-b8da-38bec1fe2d6b)
-
-
-## RESULTS :
-Thus, A Python Program is written to implement and visualize delta modulation and demodulation with low-pass filtering for signal reconstruction
+## OUTPUT WAVEFORM
+![image](https://github.com/user-attachments/assets/14b9f213-4785-4fb9-a157-21341fb95aaf)
+## RESULT
+The delta modulation successfully encoded and decoded the sine wave signal. Applying a low-pass filter to the demodulated signal significantly reduced distortion, resulting in a smooth reconstructed waveform that closely resembles the original signal.
